@@ -7,6 +7,17 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
     <script>
 
+        document.addEventListener("DOMContentLoaded", function () {
+            const sceneEl = document.querySelector('a-scene');
+            let arSystem;
+            sceneEl.addEventListener('loaded', function () {
+                arSystem = sceneEl.systems["mindar-image-system"];
+            });
+            const pauseButton = document.querySelector("#example-pause-button");
+            pauseButton.addEventListener('click', () => {
+                arSystem.pause(); // pause AR, pause video
+            });
+        });
         const showInfo = () => {
             let y = 0;
             const profileButton = document.querySelector("#profile-button");
@@ -28,7 +39,7 @@
 
             let currentTab = '';
             webButton.addEventListener('click', function (evt) {
-                window.location.href='http://alvirity.ru';
+                window.location.href = 'http://alvirity.ru';
                 currentTab = 'web';
             });
 
@@ -41,6 +52,13 @@
         }
 
         const showPortfolio = (done) => {
+
+            const sceneEl = document.querySelector('a-scene');
+            let arSystem;
+            sceneEl.addEventListener('loaded', function () {
+                arSystem = sceneEl.systems["mindar-image-system"];
+            });
+
             const portfolio = document.querySelector("#portfolio-panel");
             const paintandquestPreviewButton = document.querySelector("#paintandquest-preview-button");
 
@@ -232,7 +250,7 @@
 
             </a-assets>
 
-            <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+            <a-camera id="example-pause-button" position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
                 raycaster="far: 10000; objects: .clickable">
             </a-camera>
 
